@@ -13,7 +13,7 @@ class Pages extends Controller
     }
 
     $data = [
-      'title' => 'SharePosts',
+      'title' => 'Posts',
       'description' => 'Simple social network for sharing posts with eachother built with VPMVC PHP framework.'
     ];
 
