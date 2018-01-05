@@ -66,4 +66,11 @@ class User
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
+
+    public function getUsers()
+    {
+        $this->db->query('SELECT * FROM users');
+        return $this->db->resultSet();
+        // return $results;
+    }
 }

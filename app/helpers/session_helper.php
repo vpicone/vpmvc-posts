@@ -35,3 +35,12 @@ function isLoggedIn()
         return false;
     }
 }
+
+function isAdmin()
+{
+    if ($_SESSION['role'] === 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}

@@ -18,11 +18,17 @@
                     <li class="nav-item">
                         <span class="navbar-text"><i class="fa fa-user"></i></span>
                     <span
-                        style="margin: 0 .5rem;"
+                        style="margin-left: 0.5rem;"
                         class="navbar-text"><?php echo $_SESSION['user_name']; ?>
                     </span>
+                    <?php if ($_SESSION['role'] == 'admin') : ?>
+                    <span
+                        style="margin-right: 0.5rem;"
+                        class="navbar-text">(admin)
+                    </span>
+                    <?php endif; ?>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="margin-left: 1rem">
                     <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                 </li>
             <?php else : ?>
