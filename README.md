@@ -6,10 +6,10 @@ This a working implementation of the [VPMVC](https://github.com/vpicone/vpmvc) f
 
 ### Short term
 
-* [ ] Users can update/remove their posts
-* [ ] Add admin role
 * [ ] Add and remove users via admin role
 * [ ] View 'feed' of individual user
+* [ ] Add mock data loading for admins
+* [ ] Deploy sample site w/ single admin
 
 ### Long term
 
@@ -20,6 +20,9 @@ This a working implementation of the [VPMVC](https://github.com/vpicone/vpmvc) f
 
 ### Completed
 
+* [x] Add modals for admin approval
+* [x] Users can update/remove their posts
+* [x] Add admin role
 * [x] Add Post/User controller
 * [x] Add login/register views
 * [x] Add Post creation/detail views

@@ -14,13 +14,46 @@ class Admin extends Controller
 
     public function index()
     {
-        $posts = $this->postModel->getPosts();
+        $this->view('admin/index');
+    }
+
+    public function users()
+    {
         $users = $this->userModel->getUsers();
 
         $data = [
-            'posts' => $posts,
             'users' => $users
         ];
-        $this->view('admin/index', $data);
+        $this->view('admin/users', $data);
+    }
+
+    public function posts()
+    {
+        $posts = $this->postModel->getPosts();
+
+        $data = [
+            'posts' => $posts,
+        ];
+        $this->view('admin/posts', $data);
+    }
+
+
+    public function deletePost($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if (!isAdmin()) {
+                // Check for admin role
+                redirect('posts');
+            }
+
+            if ($this->postModel->deletePost($id)) {
+                flash('post_message', 'Post removed.');
+                redirect('admin/posts');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            redirect('posts');
+        }
     }
 }

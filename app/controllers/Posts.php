@@ -65,21 +65,24 @@ class Posts extends Controller
 
     }
 
+
     public function edit($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //sanitize first
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
             $post = $this->postModel->getPostById($id);
             if ($post->user_id != $_SESSION['user_id']) {
                     //If post's user isn't the current user redirect
                 redirect('posts');
             }
 
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
             $data = [
+                'id' => $id,
                 'title' => trim($_POST['title']),
                 'body' => trim($_POST['body']),
-                'id' => $id,
+                'user_id' => $_SESSION['user_id'],
                 'title_err' => '',
                 'body_err' => ''
             ];
@@ -95,18 +98,18 @@ class Posts extends Controller
                 //Validated
                 if ($this->postModel->updatePost($data)) {
                     flash('post_message', 'Post update successful.');
-                    redirect('/');
+                    redirect('posts');
                 } else {
                     die('Failed to edit post.');
                 }
+
             } else {
                 //render with error messages
-                $this->view('posts/edit', $data);
+                $this->view("posts/edit", $data);
             }
 
-
         } else {
-            //  Fetch frome existing model
+            //  Fetch from existing model
             $post = $this->postModel->getPostById($id);
             if ($post->user_id != $_SESSION['user_id']) {
                     //If post's user isn't the current user redirect
@@ -114,11 +117,12 @@ class Posts extends Controller
             }
 
             $data = [
+                'id' => $id,
                 'title' => $post->title,
                 'body' => $post->body,
             ];
 
-            $this->view('posts/edit', $data);
+            $this->view("posts/edit", $data);
         }
 
     }
@@ -138,14 +142,18 @@ class Posts extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $post = $this->postModel->getPostById($id);
-            if ($post->user_id != $_SESSION['user_id']) {
+            if ($post->user_id != $_SESSION['user_id'] && $_SESSION['role'] != 'admin') {
                     //If post's user isn't the current user redirect
                 redirect('posts');
             }
 
             if ($this->postModel->deletePost($id)) {
                 flash('post_message', 'Post removed.');
-                redirect('posts');
+                if ($_SESSION['role'] == 'admin') {
+                    redirect('admin/posts');
+                } else {
+                    redirect('posts');
+                }
             } else {
                 die('Something went wrong');
             }

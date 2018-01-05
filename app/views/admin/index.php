@@ -1,3 +1,4 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-  <?php print_r($data['users']); ?>
+ <a href="<?php echo URLROOT; ?>/admin/posts">Posts</a>
+ <a href="<?php echo URLROOT; ?>/admin/users">Users</a>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

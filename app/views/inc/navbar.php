@@ -12,6 +12,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT; ?>/pages/about">About</a>
                 </li>
+                <?php if ((isset($_SESSION['role'])) && ($_SESSION['role'] == 'admin')) : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo URLROOT; ?>/admin/">Admin</a>
+                </li>
+                <?php endif; ?>
             </ul>
             <ul class="navbar-nav ml-auto">
             <?php if (isset($_SESSION['user_id'])) : ?>
