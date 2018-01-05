@@ -15,6 +15,13 @@
             </ul>
             <ul class="navbar-nav ml-auto">
             <?php if (isset($_SESSION['user_id'])) : ?>
+                    <li class="nav-item">
+                        <span class="navbar-text"><i class="fa fa-user"></i></span>
+                    <span
+                        style="margin: 0 .5rem;"
+                        class="navbar-text"><?php echo $_SESSION['user_name']; ?>
+                    </span>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                 </li>

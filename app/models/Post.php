@@ -12,7 +12,6 @@ class Post
         $this->db->query('SELECT * FROM posts WHERE id = :id');
         $this->db->bind(':id', $id);
         return $this->db->single();
-
     }
 
 

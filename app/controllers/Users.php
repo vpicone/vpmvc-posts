@@ -183,4 +183,33 @@ class Users extends Controller
         session_destroy();
         redirect('users/login');
     }
+
+    public function load()
+    {
+        if (($handle = fopen("../MOCK_DATA.csv", "r")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                $name = filter_var($data[0], FILTER_SANITIZE_STRING);
+                $email = filter_var($data[1], FILTER_SANITIZE_EMAIL);
+                $password = filter_var($data[2], FILTER_SANITIZE_STRING);
+
+                $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
+                $userData = [
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $encrypted_password
+                ];
+
+                if ($this->userModel->register($userData)) {
+                    echo "$name registered. <br>";
+                } else {
+                    echo "Failure.";
+                }
+            }
+            fclose($handle);
+        } else {
+            redirect('/');
+        }
+    }
+
+
 }

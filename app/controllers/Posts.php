@@ -68,6 +68,12 @@ class Posts extends Controller
     public function edit($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $post = $this->postModel->getPostById($id);
+            if ($post->user_id != $_SESSION['user_id']) {
+                    //If post's user isn't the current user redirect
+                redirect('posts');
+            }
+
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             $data = [
@@ -131,6 +137,12 @@ class Posts extends Controller
     public function delete($id)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $post = $this->postModel->getPostById($id);
+            if ($post->user_id != $_SESSION['user_id']) {
+                    //If post's user isn't the current user redirect
+                redirect('posts');
+            }
+
             if ($this->postModel->deletePost($id)) {
                 flash('post_message', 'Post removed.');
                 redirect('posts');
@@ -139,6 +151,33 @@ class Posts extends Controller
             }
         } else {
             redirect('posts');
+        }
+    }
+
+    public function load()
+    {
+        if (($handle = fopen("../MOCK_POSTS.csv", "r")) !== false) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+                $title = filter_var($data[0], FILTER_SANITIZE_STRING);
+                $body = filter_var($data[1], FILTER_SANITIZE_STRING);
+                $user_id = filter_var($data[2], FILTER_SANITIZE_NUMBER_INT);
+
+                $postData = [
+                    'title' => $title,
+                    'body' => $body,
+                    'user_id' => $user_id
+                ];
+
+                if ($this->postModel->addPost($postData)) {
+                    echo "$title registered. <br>";
+                } else {
+                    echo "Failure.";
+                }
+            }
+            fclose($handle);
+            redirect('/');
+        } else {
+            echo "Failed.";
         }
     }
 }
