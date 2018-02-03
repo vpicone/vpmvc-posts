@@ -1,5 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
   <h1>Posts</h1>
+  <?php flash('post_message'); ?>
   <div class="container">
     <table class="table">
       <thead>
@@ -14,7 +15,7 @@
       <tbody>
         <?php foreach ($data['posts'] as $post) : ?>
           <tr>
-            <th scope="row"><?php echo $post->id ?></th>
+            <th scope="row"><?php echo $post->postId ?></th>
             <th scope="row"><?php echo $post->title ?></th>
             <td scope="row"><?php echo $post->created_at ?></td>
             <td scope="row"><?php echo $post->name ?></td>
@@ -24,7 +25,7 @@
                 type="button"
                 data-toggle="modal"
                 data-target="#confirmDelete"
-                data-id=<?php echo $post->id ?>
+                data-id=<?php echo $post->postId ?>
               >
                 <i class="fa fa-trash-o"></i>
               </button>

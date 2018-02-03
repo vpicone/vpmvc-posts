@@ -12,7 +12,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <form class="pull-right" action="<?php echo URLROOT; ?>/admin/deletePost/<?php echo $data['post']->id; ?>" method="post">
+        <form id="confirmDeleteForm" class="pull-right" action="<?php echo URLROOT; ?>/posts/delete/" method="post">
             <input type="submit" value="Delete" class="btn btn-danger">
         </form>
       </div>

@@ -21,6 +21,25 @@ class Posts extends Controller
         $this->view('posts/index', $data);
     }
 
+    public function get()
+    {
+        $posts = $this->postModel->getPosts();
+        $data = [
+            'posts' => $posts,
+        ];
+        echo json_encode($data);
+    }
+
+    public function typescript()
+    {
+        $posts = $this->postModel->getPosts();
+        $data = [
+            'posts' => $posts,
+        ];
+        $this->view('posts/typescript', $data);
+        $this->view('posts/typescript');
+    }
+
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -142,14 +161,15 @@ class Posts extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $post = $this->postModel->getPostById($id);
+
             if ($post->user_id != $_SESSION['user_id'] && $_SESSION['role'] != 'admin') {
-                    //If post's user isn't the current user redirect
+                // Only allow deletion if admin or owned post
                 redirect('posts');
             }
 
             if ($this->postModel->deletePost($id)) {
                 flash('post_message', 'Post removed.');
-                if ($_SESSION['role'] == 'admin') {
+                if (isAdmin()) {
                     redirect('admin/posts');
                 } else {
                     redirect('posts');

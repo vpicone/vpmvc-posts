@@ -38,22 +38,25 @@ class Admin extends Controller
     }
 
 
-    public function deletePost($id)
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if (!isAdmin()) {
-                // Check for admin role
-                redirect('posts');
-            }
 
-            if ($this->postModel->deletePost($id)) {
-                flash('post_message', 'Post removed.');
-                redirect('admin/posts');
-            } else {
-                die('Something went wrong');
-            }
-        } else {
-            redirect('posts');
-        }
-    }
+
+
+    // public function deletePost($id)
+    // {
+    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         if (!isAdmin()) {
+    //             // Check for admin role
+    //             redirect('posts');
+    //         }
+
+    //         if ($this->postModel->deletePost($id)) {
+    //             flash('post_message', 'Post removed.');
+    //             redirect('posts');
+    //         } else {
+    //             die('Something went wrong');
+    //         }
+    //     } else {
+    //         redirect('posts');
+    //     }
+    // }
 }

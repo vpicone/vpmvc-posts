@@ -2,9 +2,11 @@
 class Post
 {
     private $db;
+    private $paginator;
     public function __construct()
     {
-        $this->db = new Database;
+        $this->db = new Database();
+        // $this->paginator = new Paginator();
     }
 
     public function getPostById($id)
@@ -17,7 +19,7 @@ class Post
 
     public function getPosts()
     {
-        $this->db->query('SELECT *,
+        $this->db->query("SELECT *,
                           posts.id as postId,
                           users.id as userId,
                           posts.created_at as postCreated,
@@ -25,8 +27,8 @@ class Post
                           FROM posts
                           INNER JOIN users
                           ON posts.user_id = users.id
-                          ORDER BY posts.created_at DESC
-                          ');
+                          ORDER BY posts.created_at DESC");
+
 
 
         $results = $this->db->resultSet();
