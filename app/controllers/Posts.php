@@ -32,12 +32,12 @@ class Posts extends Controller
 
     public function typescript()
     {
-        $posts = $this->postModel->getPosts();
-        $data = [
-            'posts' => $posts,
-        ];
-        $this->view('posts/typescript', $data);
-        $this->view('posts/typescript');
+        // $posts = $this->postModel->getPosts();
+        // $data = [
+        //     'posts' => $posts,
+        // ];
+        // $this->view('posts/typescript', $data);
+        require_once('ts-app/index.html');
     }
 
     public function add()
