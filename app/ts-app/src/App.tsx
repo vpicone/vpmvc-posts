@@ -1,23 +1,23 @@
-import * as React from 'react';
-import './App.css';
+import * as React from "react";
+import "./App.css";
 
-const logo = require('./logo.svg');
-const logo2 = require('./logo.1.svg');
-const logo3 = require('./logo.2.svg');
+import logo1 from "./logo1.svg";
+import logo2 from "./logo2.svg";
+import logo3 from "./logo3.svg";
 
 class App extends React.Component {
-  render() {
+  public render() {
     return (
       <div className="App">
         <header className="App-header">
           <div className="preload-juggle">
             <div className="ball">
-              <img src={logo} alt="logo" />
+              <img src={logo1} alt="logo" />
             </div>
-            <div style={{width: '50px'}}className="ball">
+            <div style={{ width: "50px" }} className="ball">
               <img src={logo2} alt="logo" />
             </div>
-            <div style={{width: '85px'}}className="ball">
+            <div style={{ width: "85px" }} className="ball">
               <img src={logo3} alt="logo" />
             </div>
           </div>
